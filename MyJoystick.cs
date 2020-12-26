@@ -21,7 +21,7 @@ public class MyJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoint
 	}
 	public virtual void OnPointerDown(PointerEventData ped){
 		OnDrag (ped);
-		if (!started) {
+		if (!started && !MyRotationTouchpad.mrt.istouchpadactive) {
 			started = true;
 		}
 	}

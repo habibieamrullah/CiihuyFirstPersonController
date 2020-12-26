@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class MyRotationTouchpad : MonoBehaviour
 {
@@ -12,15 +11,17 @@ public class MyRotationTouchpad : MonoBehaviour
     public bool InvertedV = true;
     public bool ClampedV = true;
 
-    bool ismouseheld;
     Vector2 currentMousePosition;
     Vector2 mouseDeltaPosition;
     Vector2 lastMousePosition;
-    bool istouchpadactive;
-
+	
+	public static MyRotationTouchpad mrt;
+	[HideInInspector]
+	public bool istouchpadactive;
 
     private void Start()
     {
+		mrt = this;
         ResetMousePosition();
     }
 
@@ -31,7 +32,8 @@ public class MyRotationTouchpad : MonoBehaviour
 				currentMousePosition = Input.GetTouch(0).position;
 			}
 		}else if(Input.touchCount == 2){
-			if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)){
+			
+			if(MyJoystick.js.started){
 				currentMousePosition = Input.GetTouch(1).position;
 			}else{
 				currentMousePosition = Input.GetTouch(0).position;
@@ -53,7 +55,8 @@ public class MyRotationTouchpad : MonoBehaviour
 					currentMousePosition = Input.GetTouch(0).position;
 				}
 			}else if(Input.touchCount == 2){
-				if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)){
+				
+				if(MyJoystick.js.started){
 					currentMousePosition = Input.GetTouch(1).position;
 				}else{
 					currentMousePosition = Input.GetTouch(0).position;
