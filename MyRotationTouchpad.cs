@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MyRotationTouchpad : MonoBehaviour
 {
@@ -25,23 +26,43 @@ public class MyRotationTouchpad : MonoBehaviour
 
     public void ResetMousePosition()
     {
-		if(Input.touchCount > 0)
-			currentMousePosition = Input.GetTouch(0).position;
-		else 
+		if(Input.touchCount == 1){
+			if(!MyJoystick.js.started){
+				currentMousePosition = Input.GetTouch(0).position;
+			}
+		}else if(Input.touchCount == 2){
+			if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)){
+				currentMousePosition = Input.GetTouch(1).position;
+			}else{
+				currentMousePosition = Input.GetTouch(0).position;
+			}
+		}else{
 			currentMousePosition = Input.mousePosition;
+		}
+		
         lastMousePosition = currentMousePosition;
         mouseDeltaPosition = currentMousePosition - lastMousePosition;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (istouchpadactive)
         {
-
-            if(Input.touchCount > 0)
-				currentMousePosition = Input.GetTouch(0).position;
-			else 
+            if(Input.touchCount == 1){
+				if(!MyJoystick.js.started){
+					currentMousePosition = Input.GetTouch(0).position;
+				}
+			}else if(Input.touchCount == 2){
+				if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)){
+					currentMousePosition = Input.GetTouch(1).position;
+				}else{
+					currentMousePosition = Input.GetTouch(0).position;
+				}
+			}else{
 				currentMousePosition = Input.mousePosition;
+			}
+			
+			
             mouseDeltaPosition = currentMousePosition - lastMousePosition;
 
             if (RotatableH != null)

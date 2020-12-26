@@ -9,9 +9,13 @@ public class MyJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoint
 	private Image joystickImage;
 	private Vector3 inputVector;
 	
-	bool started = false;
+	[HideInInspector]
+	public bool started = false;
+	
+	public static MyJoystick js;
 
 	private void Start(){
+		js = this;
 		bgImage = GetComponent<Image> ();
 		joystickImage = transform.GetChild (0).GetComponent<Image> ();
 	}
@@ -24,6 +28,7 @@ public class MyJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoint
 	public virtual void OnPointerUp(PointerEventData ped){
 		inputVector = Vector3.zero;
 		joystickImage.rectTransform.anchoredPosition = Vector3.zero;
+		started = false;
 	}
 	public virtual void OnDrag(PointerEventData ped){
 		Vector2 pos;
