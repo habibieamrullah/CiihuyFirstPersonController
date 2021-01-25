@@ -8,3 +8,5 @@ Inside this package you can find several C# script files with a demo scene. So i
 Watch this tutorial video to see how to use it:
 
 https://www.youtube.com/watch?v=0W8rDJyp5QI
+
+If, somehow you got problem with this files, please try to download the Unity package in this link instead: https://creativeshop.ciihuy.com/product/ciihuy-fps-controller-system-unity-asset/
